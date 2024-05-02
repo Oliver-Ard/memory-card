@@ -1,5 +1,7 @@
+import Header from "./components/Header/Header";
+
 function App() {
-	return <h1>PokeMemory</h1>;
+	return <Header />;
 }
 
 export default App;

@@ -13,11 +13,28 @@ const GlobalStyles = createGlobalStyle`
 	--font-size-800: 2.074rem;
 	--font-size-900: 2.488rem;
 	--font-size-1000: 2.986rem;
-  }
+
+	--clr-primary: #FF3511;
+	--clr-dark: #242020;
+	--clr-light: #fff;
+	
+	--clr-overlay: rgb(0, 0, 0, 0.7);
+
+	--box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.8);
+
+	--shadow-border: 0 0 0 10px var(--clr-dark);
+	--shadow-border-2: 0 0 0 8px var(--clr-dark);
+
+	--border-radius: 8px;
+	--border-radius-2: 50%;
+	--border-radius-3: 50px;
+}
 
 	body {
-		font-family: var(--ff-body)
-	}
+	font-family: var(--ff-body);
+	font-size: var(--font-size-500);
+	color: var(--clr-dark);
+}
 	
 	button {
 	display: inline-block;
