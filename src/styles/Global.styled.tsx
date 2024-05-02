@@ -2,6 +2,8 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
   :root {
+	--ff-body: "Montserrat", sans-serif;
+
   --font-size-200: 0.694rem;
 	--font-size-300: 0.833rem;
 	--font-size-400: 1rem;
@@ -13,6 +15,10 @@ const GlobalStyles = createGlobalStyle`
 	--font-size-1000: 2.986rem;
   }
 
+	body {
+		font-family: var(--ff-body)
+	}
+	
 	button {
 	display: inline-block;
 	cursor: pointer;
