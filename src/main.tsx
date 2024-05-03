@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { ThemeProvider } from "styled-components";
-import ResetStyles from "./styles/Reset.styled";
-import GlobalStyles from "./styles/Global.styled";
-import theme from "./styles/Theme.styled.js";
+import ResetStyles from "./styles/global/Reset.styled.js";
+import GlobalStyles from "./styles/global/Global.styled.js";
+import theme from "./styles/global/Theme.styled.js";
 
 import App from "./App.jsx";
 

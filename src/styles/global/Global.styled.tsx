@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle<{ theme: ITheme }>`
+const GlobalStyles = createGlobalStyle`
   :root {
 	--ff-body: "Montserrat", sans-serif;
 
@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle<{ theme: ITheme }>`
 	--clr-secondary:#FFCB05 ;
 	--clr-dark: #242020;
 	--clr-light: #fff;
+	--clr-error: #d10c0c;
 	
 	--clr-overlay: rgb(0, 0, 0, 0.7);
 
@@ -34,7 +35,7 @@ const GlobalStyles = createGlobalStyle<{ theme: ITheme }>`
 	body {
 	background: var(--clr-secondary);
 	font-family: var(--ff-body);
-	font-size: var(--font-size-600);
+	font-size: var(--font-size-500);
 	color: var(--clr-dark);
 }
 	
@@ -54,12 +55,6 @@ i {
 	font-size: inherit;
 	margin: 0 0.3rem;
 }
-
-@media (max-width: ${({ theme }) => theme.mobile}) {
-		body {
-			font-size: var(--font-size-500)
-		}
-	}
 `;
 
 export default GlobalStyles;

@@ -1,6 +1,8 @@
 import { StyledCardsGrid } from "./CardsGrid.styled";
 
 import Card from "./Card/Card";
+import { LoadingIcon } from "../../styles/shared/LoadingIcons.styled";
+import { ServerError } from "../../styles/shared/Errors.styled";
 
 interface ICardsGrid {
 	data: IPokemon[];
@@ -12,8 +14,8 @@ interface ICardsGrid {
 function CardsGrid({ data, error, loading, onClick }: ICardsGrid) {
 	return (
 		<StyledCardsGrid>
-			{loading && <p>Loading....</p>}
-			{error && <p>{error}</p>}
+			{loading && <LoadingIcon />}
+			{error && <ServerError>{error}</ServerError>}
 			{data.map((pokemon) => (
 				<Card
 					key={pokemon.id}

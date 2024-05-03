@@ -10,7 +10,7 @@ import capitalizeFirstLetter from "./utils/capitalizeFirstLetter";
 import pokemonsName from "./data/pokemonsName";
 
 // StyledComponents
-import { MainContent } from "./styles/components/MainContent.styled";
+import { MainContent } from "./styles/shared/MainContent.styled";
 
 // Components
 import Header from "./components/Header/Header";
