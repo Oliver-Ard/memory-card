@@ -9,9 +9,9 @@ interface ApiResponse {
 	};
 }
 
-async function fetchPokemons(pokemonName: string) {
+async function fetchPokemons(pokemonNumber: number) {
 	const response = await fetch(
-		`https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+		`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`
 	);
 
 	if (!response.ok) {

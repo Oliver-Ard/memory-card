@@ -9,5 +9,5 @@
 		"source.fixAll.eslint": "explicit"
 	},
 	"eslint.validate": ["javascript", "javascriptreact"],
-	"conventionalCommits.scopes": ["types"]
+	"conventionalCommits.scopes": ["types", "utils"]
 }

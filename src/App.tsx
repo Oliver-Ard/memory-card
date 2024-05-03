@@ -5,9 +5,7 @@ import { v4 as uuid } from "uuid";
 import fetchPokemons from "./utils/fetchPokemons";
 import shuffleArray from "./utils/shuffleArray";
 import capitalizeFirstLetter from "./utils/capitalizeFirstLetter";
-
-// Data
-import pokemonsName from "./data/pokemonsName";
+import generatePokemons from "./utils/randomPokemons";
 
 // StyledComponents
 import { MainContent } from "./styles/shared/MainContent.styled";
@@ -31,8 +29,10 @@ function App() {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const promises = pokemonsName.map(async (pokemonName) => {
-					const data = await fetchPokemons(pokemonName);
+				const randomPokemons = generatePokemons(12);
+
+				const promises = randomPokemons.map(async (pokemonNumber) => {
+					const data = await fetchPokemons(pokemonNumber);
 					return {
 						id: uuid(),
 						name: capitalizeFirstLetter(data.name),
