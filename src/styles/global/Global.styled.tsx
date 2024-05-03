@@ -15,13 +15,14 @@ const GlobalStyles = createGlobalStyle`
 	--font-size-1000: 2.986rem;
 
 	--clr-primary: #FF3511;
-	--clr-secondary:#FFCB05 ;
+	--clr-secondary:#FFCB05;
 	--clr-dark: #242020;
 	--clr-light: #fff;
 	--clr-error: #d10c0c;
 	--clr-blue: #2C72B8;
 	
 	--clr-overlay: rgb(0, 0, 0, 0.7);
+	--clr-overlay-secondary:#ffcd05d5;
 
 	--box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.4);
 

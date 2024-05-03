@@ -14,6 +14,7 @@ import { MainContent } from "./styles/shared/MainContent.styled";
 import Header from "./components/Header/Header";
 import CardsGrid from "./components/CardsGrid/CardsGrid";
 import Scoreboard from "./components/Scoreboard/Scoreboard";
+import GameOver from "./components/Modals/GameOver.modal";
 
 function App() {
 	// Game States
@@ -27,32 +28,33 @@ function App() {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		async function fetchData() {
-			try {
-				const randomPokemons = generatePokemons(12);
-
-				const promises = randomPokemons.map(async (pokemonNumber) => {
-					const data = await fetchPokemons(pokemonNumber);
-					return {
-						id: uuid(),
-						name: capitalizeFirstLetter(data.name),
-						image: data.sprites.other["official-artwork"].front_default,
-					};
-				});
-
-				const resolvedPokemons = await Promise.all(promises);
-
-				setPokemons(shuffleArray(resolvedPokemons));
-			} catch (err) {
-				const errorString = err as Error;
-				setError(errorString.message);
-			} finally {
-				setLoading(false);
-			}
-		}
-		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises, @typescript-eslint/no-use-before-define
 		fetchData();
 	}, []);
+
+	async function fetchData() {
+		try {
+			const randomPokemons = generatePokemons(12);
+
+			const promises = randomPokemons.map(async (pokemonNumber) => {
+				const data = await fetchPokemons(pokemonNumber);
+				return {
+					id: uuid(),
+					name: capitalizeFirstLetter(data.name),
+					image: data.sprites.other["official-artwork"].front_default,
+				};
+			});
+
+			const resolvedPokemons = await Promise.all(promises);
+
+			setPokemons(shuffleArray(resolvedPokemons));
+		} catch (err) {
+			const errorString = err as Error;
+			setError(errorString.message);
+		} finally {
+			setLoading(false);
+		}
+	}
 
 	function playGame(pokemonName: string) {
 		if (!clickedPokemons.includes(pokemonName)) {
@@ -90,7 +92,9 @@ function App() {
 		setPokemons(shuffleArray(pokemons));
 	}
 
-	function resetGame() {
+	function restartGame() {
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		fetchData();
 		setCurrentScore(0);
 		setBestScore(0);
 		setClickedPokemons([]);
@@ -108,6 +112,7 @@ function App() {
 					loading={loading}
 					onClick={handleGame}
 				/>
+				{gameOver && <GameOver onRestart={restartGame} />}
 			</MainContent>
 		</>
 	);
