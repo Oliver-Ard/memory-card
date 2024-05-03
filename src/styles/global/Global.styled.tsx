@@ -19,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
 	--clr-dark: #242020;
 	--clr-light: #fff;
 	--clr-error: #d10c0c;
+	--clr-blue: #2C72B8;
 	
 	--clr-overlay: rgb(0, 0, 0, 0.7);
 

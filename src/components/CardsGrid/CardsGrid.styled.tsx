@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledCardsGrid = styled.section<{ theme: ITheme }>`
-	padding: 4rem 0;
+	padding-bottom: 4rem;
 	width: min(90%, 50rem);
 
 	display: grid;

@@ -15,6 +15,7 @@ import { MainContent } from "./styles/shared/MainContent.styled";
 // Components
 import Header from "./components/Header/Header";
 import CardsGrid from "./components/CardsGrid/CardsGrid";
+import Scoreboard from "./components/Scoreboard/Scoreboard";
 
 function App() {
 	// Game States
@@ -53,13 +54,6 @@ function App() {
 		fetchData();
 	}, []);
 
-	function resetGame() {
-		setCurrentScore(0);
-		setBestScore(0);
-		setClickedPokemons([]);
-		setGameOver(false);
-	}
-
 	function playGame(pokemonName: string) {
 		if (!clickedPokemons.includes(pokemonName)) {
 			const newScore = currentScore + 1;
@@ -74,6 +68,15 @@ function App() {
 		}
 	}
 
+	function focusScoreBoard() {
+		const scoreBoardEl: HTMLElement | null =
+			document.querySelector("#scoreboard");
+
+		if (scoreBoardEl) {
+			scoreBoardEl.focus();
+		}
+	}
+
 	function handleGame(pokemonName: string) {
 		playGame(pokemonName);
 
@@ -81,14 +84,24 @@ function App() {
 			setGameOver(true);
 		}
 
+		focusScoreBoard();
+
 		// Shuffle Array
 		setPokemons(shuffleArray(pokemons));
+	}
+
+	function resetGame() {
+		setCurrentScore(0);
+		setBestScore(0);
+		setClickedPokemons([]);
+		setGameOver(false);
 	}
 
 	return (
 		<>
 			<Header />
 			<MainContent>
+				<Scoreboard score={{ currentScore, bestScore }} />
 				<CardsGrid
 					data={pokemons}
 					error={error}
