@@ -8,7 +8,7 @@ interface ICardsGrid {
 	data: IPokemon[];
 	error: string | null;
 	loading: boolean;
-	onClick: () => void;
+	onClick: (pokemonName: string) => void;
 }
 
 function CardsGrid({ data, error, loading, onClick }: ICardsGrid) {

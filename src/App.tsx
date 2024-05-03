@@ -17,6 +17,12 @@ import Header from "./components/Header/Header";
 import CardsGrid from "./components/CardsGrid/CardsGrid";
 
 function App() {
+	// Game States
+	const [clickedPokemons, setClickedPokemons] = useState<string[]>([]);
+	const [currentScore, setCurrentScore] = useState<number>(0);
+	const [bestScore, setBestScore] = useState<number>(0);
+	const [gameOver, setGameOver] = useState<boolean>(false);
+	// Data States
 	const [pokemons, setPokemons] = useState<IPokemon[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
@@ -47,10 +53,36 @@ function App() {
 		fetchData();
 	}, []);
 
-	function handleShuffle() {
-		const newArray = [...pokemons];
+	function resetGame() {
+		setCurrentScore(0);
+		setBestScore(0);
+		setClickedPokemons([]);
+		setGameOver(false);
+	}
 
-		setPokemons(shuffleArray(newArray));
+	function playGame(pokemonName: string) {
+		if (!clickedPokemons.includes(pokemonName)) {
+			const newScore = currentScore + 1;
+			if (newScore > bestScore) {
+				setBestScore(newScore);
+			}
+			setCurrentScore(newScore);
+			setClickedPokemons((prevPokemons) => [...prevPokemons, pokemonName]);
+		} else {
+			setCurrentScore(0);
+			setClickedPokemons([]);
+		}
+	}
+
+	function handleGame(pokemonName: string) {
+		playGame(pokemonName);
+
+		if (clickedPokemons.length === 11) {
+			setGameOver(true);
+		}
+
+		// Shuffle Array
+		setPokemons(shuffleArray(pokemons));
 	}
 
 	return (
@@ -61,7 +93,7 @@ function App() {
 					data={pokemons}
 					error={error}
 					loading={loading}
-					onClick={handleShuffle}
+					onClick={handleGame}
 				/>
 			</MainContent>
 		</>
