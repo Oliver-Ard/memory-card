@@ -9,6 +9,8 @@ const pokemonsName: string[] = [
 	"onix",
 	"electabuzz",
 	"flareon",
+	"charizard",
+	"turtwig",
 ];
 
 export default pokemonsName;

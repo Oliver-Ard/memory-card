@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
+// Utils
 import fetchPokemons from "./utils/fetchPokemons";
 import shuffleArray from "./utils/shuffleArray";
+import capitalizeFirstLetter from "./utils/capitalizeFirstLetter";
+
+// Data
 import pokemonsName from "./data/pokemonsName";
 
-import Header from "./components/Header/Header";
+// StyledComponents
+import { MainContent } from "./styles/components/MainContent.styled";
 
-export interface Pokemon {
-	id: string;
-	name: string;
-	image: string;
-}
+// Components
+import Header from "./components/Header/Header";
+import CardsGrid from "./components/CardsGrid/CardsGrid";
 
 function App() {
-	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+	const [pokemons, setPokemons] = useState<IPokemon[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string>();
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -25,7 +28,7 @@ function App() {
 					const data = await fetchPokemons(pokemonName);
 					return {
 						id: uuid(),
-						name: data.name,
+						name: capitalizeFirstLetter(data.name),
 						image: data.sprites.other["official-artwork"].front_default,
 					};
 				});
@@ -53,17 +56,14 @@ function App() {
 	return (
 		<>
 			<Header />
-			<button onClick={handleShuffle} type="button">
-				ReShuffle
-			</button>
-			{loading && <p>Loading....</p>}
-			{error && <p>{error}</p>}
-			{pokemons.map((pokemon) => (
-				<div key={pokemon.id}>
-					<p>{pokemon.name}</p>
-					<img src={pokemon.image} alt="" />
-				</div>
-			))}
+			<MainContent>
+				<CardsGrid
+					data={pokemons}
+					error={error}
+					loading={loading}
+					onClick={handleShuffle}
+				/>
+			</MainContent>
 		</>
 	);
 }

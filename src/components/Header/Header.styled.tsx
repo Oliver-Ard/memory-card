@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ITheme } from "../../types/Theme.types";
 
 export const StyledHeader = styled.header<{ theme: ITheme }>`
 	background: var(--clr-primary);

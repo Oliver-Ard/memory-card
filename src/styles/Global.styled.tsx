@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle<{ theme: ITheme }>`
   :root {
 	--ff-body: "Montserrat", sans-serif;
 
@@ -15,24 +15,26 @@ const GlobalStyles = createGlobalStyle`
 	--font-size-1000: 2.986rem;
 
 	--clr-primary: #FF3511;
+	--clr-secondary:#FFCB05 ;
 	--clr-dark: #242020;
 	--clr-light: #fff;
 	
 	--clr-overlay: rgb(0, 0, 0, 0.7);
 
-	--box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.8);
+	--box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.4);
 
 	--shadow-border: 0 0 0 10px var(--clr-dark);
 	--shadow-border-2: 0 0 0 8px var(--clr-dark);
 
-	--border-radius: 8px;
+	--border-radius: 10px;
 	--border-radius-2: 50%;
 	--border-radius-3: 50px;
 }
 
 	body {
+	background: var(--clr-secondary);
 	font-family: var(--ff-body);
-	font-size: var(--font-size-500);
+	font-size: var(--font-size-600);
 	color: var(--clr-dark);
 }
 	
@@ -52,6 +54,12 @@ i {
 	font-size: inherit;
 	margin: 0 0.3rem;
 }
+
+@media (max-width: ${({ theme }) => theme.mobile}) {
+		body {
+			font-size: var(--font-size-500)
+		}
+	}
 `;
 
 export default GlobalStyles;
