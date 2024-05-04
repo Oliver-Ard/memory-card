@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ModalBox } from "../../styles/shared/ModalBox.styled";
 import { Button } from "../../styles/shared/Button.styled";
 
-const GameOverModal = styled(ModalBox)<{ theme: ITheme }>`
+const StyledGameOverModal = styled(ModalBox)<{ theme: ITheme }>`
 	line-height: 1.2;
 
 	p {
@@ -21,9 +21,9 @@ const GameOverModal = styled(ModalBox)<{ theme: ITheme }>`
 	}
 `;
 
-function GameOver({ onRestart }: { onRestart: () => void }) {
+function GameOverModal({ onRestart }: { onRestart: () => void }) {
 	return (
-		<GameOverModal $width="30rem">
+		<StyledGameOverModal $width="30rem">
 			<div className="content">
 				<p>Congratulation!</p>
 				<p>You caught all the pokemons!</p>
@@ -35,7 +35,7 @@ function GameOver({ onRestart }: { onRestart: () => void }) {
 					Restart Game
 				</Button>
 			</div>
-		</GameOverModal>
+		</StyledGameOverModal>
 	);
 }
-export default GameOver;
+export default GameOverModal;

@@ -14,18 +14,21 @@ import { MainContent } from "./styles/shared/MainContent.styled";
 import Header from "./components/Header/Header";
 import CardsGrid from "./components/CardsGrid/CardsGrid";
 import Scoreboard from "./components/Scoreboard/Scoreboard";
-import GameOver from "./components/Modals/GameOver.modal";
+import GameOverModal from "./components/Modals/GameOverModal";
+import IntroModal from "./components/Modals/IntroModal";
 
 function App() {
+	// First Loading State
+	const [introModal, setIntroModal] = useState<boolean>(true);
+	// Data States
+	const [pokemons, setPokemons] = useState<IPokemon[]>([]);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState<string | null>(null);
 	// Game States
 	const [clickedPokemons, setClickedPokemons] = useState<string[]>([]);
 	const [currentScore, setCurrentScore] = useState<number>(0);
 	const [bestScore, setBestScore] = useState<number>(0);
 	const [gameOver, setGameOver] = useState<boolean>(false);
-	// Data States
-	const [pokemons, setPokemons] = useState<IPokemon[]>([]);
-	const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		// eslint-disable-next-line @typescript-eslint/no-floating-promises, @typescript-eslint/no-use-before-define
@@ -59,9 +62,15 @@ function App() {
 	function playGame(pokemonName: string) {
 		if (!clickedPokemons.includes(pokemonName)) {
 			const newScore = currentScore + 1;
+
+			if (newScore === 12) {
+				setGameOver(true);
+			}
+
 			if (newScore > bestScore) {
 				setBestScore(newScore);
 			}
+
 			setCurrentScore(newScore);
 			setClickedPokemons((prevPokemons) => [...prevPokemons, pokemonName]);
 		} else {
@@ -79,19 +88,6 @@ function App() {
 		}
 	}
 
-	function handleGame(pokemonName: string) {
-		playGame(pokemonName);
-
-		if (clickedPokemons.length === 11) {
-			setGameOver(true);
-		}
-
-		focusScoreBoard();
-
-		// Shuffle Array
-		setPokemons(shuffleArray(pokemons));
-	}
-
 	function restartGame() {
 		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		fetchData();
@@ -101,8 +97,18 @@ function App() {
 		setGameOver(false);
 	}
 
+	function handleGame(pokemonName: string) {
+		playGame(pokemonName);
+
+		focusScoreBoard();
+
+		// Shuffle Array
+		setPokemons(shuffleArray(pokemons));
+	}
+
 	return (
 		<>
+			{introModal && <IntroModal onClick={setIntroModal} />}
 			<Header />
 			<MainContent>
 				<Scoreboard score={{ currentScore, bestScore }} />
@@ -112,7 +118,7 @@ function App() {
 					loading={loading}
 					onClick={handleGame}
 				/>
-				{gameOver && <GameOver onRestart={restartGame} />}
+				{gameOver && <GameOverModal onRestart={restartGame} />}
 			</MainContent>
 		</>
 	);
